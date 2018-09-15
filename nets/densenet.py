@@ -49,6 +49,7 @@ def densenet(images, num_classes=1001, is_training=False, dropout_keep_prob=0.8,
             # Put your code here.
             ##########################
 
+            growth = 12
             #convolution with 16 output channels.
             # 32 * 32 * 3
             end_point = "densnet_1"
@@ -59,11 +60,11 @@ def densenet(images, num_classes=1001, is_training=False, dropout_keep_prob=0.8,
             #32*32*48
             with tf.variable_scope('dense_block_1'):
                 end_point = "densnet_2"
-                net = block(net, 40, growth)
+                net = block(net, 100, growth)
                 end_points[end_point] = net
             print('{0}:{1}'.format(end_point, net.shape))
 
-            
+            growth = 24
             #32*32*12
             with tf.variable_scope('transition_layer_1'):
                 end_point = "densnet_3"
@@ -76,10 +77,11 @@ def densenet(images, num_classes=1001, is_training=False, dropout_keep_prob=0.8,
             #16*16
             with tf.variable_scope('dense_block_2'):
                 end_point = "densnet_4"
-                net = block(net, 40, growth)
+                net = block(net, 250, growth)
                 end_points[end_point] = net
             print('{0}:{1}'.format(end_point, net.shape))
             
+            growth = 40
             #16*16*24
             with tf.variable_scope('transition_layer_2'):
                 end_point = "densnet_5"
@@ -92,7 +94,7 @@ def densenet(images, num_classes=1001, is_training=False, dropout_keep_prob=0.8,
             #8*8*24
             with tf.variable_scope('dense_block_3'):
                 end_point = "densnet_6"
-                net = block(net, 40, growth)
+                net = block(net, 190, growth)
                 end_points[end_point] = net
             print('{0}:{1}'.format(end_point, net.shape))
             
