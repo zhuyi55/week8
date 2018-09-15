@@ -108,7 +108,7 @@ def densenet(images, num_classes=1001, is_training=False, dropout_keep_prob=0.8,
 
             with tf.name_scope('global_end'):
                 end_point = "densnet_8"
-                logits = tf.squeeze(tf.contrib.slim.conv2d(logits, 10, [1,1], activation_fn=None))
+                logits = tf.squeeze(tf.contrib.slim.conv2d(logits, num_classes, [1,1], activation_fn=None))
                 end_points[end_point] = logits
             print('{0}:{1}'.format(end_point, logits.shape))
 
